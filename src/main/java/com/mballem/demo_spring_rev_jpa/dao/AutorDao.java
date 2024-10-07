@@ -49,5 +49,10 @@ public class AutorDao {
                 .getResultList();
     }
 
-
+    @Transactional(readOnly = true)
+    public Long getTotalElements() {
+        String query = "select count(1) from Autor a ";
+        return this.manager.createQuery(query, Long.class)
+                .getSingleResult();
+    }
 }
