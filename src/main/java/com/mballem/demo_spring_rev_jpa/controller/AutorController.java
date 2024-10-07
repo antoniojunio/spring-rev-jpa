@@ -2,6 +2,7 @@ package com.mballem.demo_spring_rev_jpa.controller;
 
 import com.mballem.demo_spring_rev_jpa.dao.AutorDao;
 import com.mballem.demo_spring_rev_jpa.entity.Autor;
+import com.mballem.demo_spring_rev_jpa.entity.InfoAutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,4 +53,8 @@ public class AutorController {
         return dao.getTotalElements();
     }
 
+    @PutMapping("{id}/info")
+    public Autor salvarInfoAutor(@PathVariable Long id, @RequestBody InfoAutor infoAutor) {
+        return dao.saveInfoAutor(infoAutor, id);
+    }
 }

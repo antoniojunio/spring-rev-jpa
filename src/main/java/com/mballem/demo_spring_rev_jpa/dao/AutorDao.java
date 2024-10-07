@@ -1,6 +1,7 @@
 package com.mballem.demo_spring_rev_jpa.dao;
 
 import com.mballem.demo_spring_rev_jpa.entity.Autor;
+import com.mballem.demo_spring_rev_jpa.entity.InfoAutor;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
@@ -54,5 +55,12 @@ public class AutorDao {
         String query = "select count(1) from Autor a ";
         return this.manager.createQuery(query, Long.class)
                 .getSingleResult();
+    }
+
+    @Transactional(readOnly = false)
+    public Autor saveInfoAutor(InfoAutor infoAutor, Long autorId) {
+        Autor autor = findById(autorId);
+        autor.setInfoAutor(infoAutor);
+        return autor;
     }
 }
