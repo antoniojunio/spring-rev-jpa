@@ -57,4 +57,9 @@ public class AutorController {
     public Autor salvarInfoAutor(@PathVariable Long id, @RequestBody InfoAutor infoAutor) {
         return dao.saveInfoAutor(infoAutor, id);
     }
+
+    @GetMapping("info")
+    public List<Autor> salvarInfoAutor(@RequestParam String cargo) {
+        return dao.finByCargo(cargo);
+    }
 }

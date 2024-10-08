@@ -63,4 +63,16 @@ public class AutorDao {
         autor.setInfoAutor(infoAutor);
         return autor;
     }
+
+    @Transactional(readOnly = true)
+    public List<Autor> finByCargo(String cargo) {
+        String query = """
+                select a from Autor a
+                where a.infoAutor.cargo like :cargo
+                order by a.nome asc
+                """;
+        return this.manager.createQuery(query, Autor.class)
+                .setParameter("cargo", "%" + cargo + "%")
+                .getResultList();
+    }
 }
