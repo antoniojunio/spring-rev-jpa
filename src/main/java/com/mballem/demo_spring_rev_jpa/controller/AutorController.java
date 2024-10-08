@@ -3,6 +3,7 @@ package com.mballem.demo_spring_rev_jpa.controller;
 import com.mballem.demo_spring_rev_jpa.dao.AutorDao;
 import com.mballem.demo_spring_rev_jpa.entity.Autor;
 import com.mballem.demo_spring_rev_jpa.entity.InfoAutor;
+import com.mballem.demo_spring_rev_jpa.projection.AutorInfoProjection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,5 +62,10 @@ public class AutorController {
     @GetMapping("info")
     public List<Autor> salvarInfoAutor(@RequestParam String cargo) {
         return dao.finByCargo(cargo);
+    }
+
+    @GetMapping("autor-info")
+    public AutorInfoProjection salvarInfoAutor(@RequestParam Long id) {
+        return dao.findAutorInfoById(id);
     }
 }

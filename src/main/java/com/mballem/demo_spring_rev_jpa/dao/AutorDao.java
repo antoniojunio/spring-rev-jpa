@@ -2,6 +2,7 @@ package com.mballem.demo_spring_rev_jpa.dao;
 
 import com.mballem.demo_spring_rev_jpa.entity.Autor;
 import com.mballem.demo_spring_rev_jpa.entity.InfoAutor;
+import com.mballem.demo_spring_rev_jpa.projection.AutorInfoProjection;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
@@ -74,5 +75,17 @@ public class AutorDao {
         return this.manager.createQuery(query, Autor.class)
                 .setParameter("cargo", "%" + cargo + "%")
                 .getResultList();
+    }
+
+    @Transactional(readOnly = true)
+    public AutorInfoProjection findAutorInfoById(Long id) {
+        String query = """
+                select new AutorInfoProjection(a.nome, a.sobrenome, a.infoAutor.cargo, a.infoAutor.bio)
+                from Autor a
+                where a.id = :id
+                """;
+        return this.manager.createQuery(query, AutorInfoProjection.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 }
